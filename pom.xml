@@ -18,7 +18,7 @@
         <repository>
             <id>snapshots</id>
             <name>repo</name>
-            <url>http://repository.aspose.com/repo/</url>
+            <url>https://repository.aspose.com/repo/</url>
         </repository>
     </repositories>
 

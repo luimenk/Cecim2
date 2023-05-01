@@ -22,20 +22,20 @@ public class SaveInServer {
 
         String extension;
 
-        if (multipartFile.getOriginalFilename().equals("blob")){
+        if (multipartFile.getOriginalFilename().equals("blob")) {
             extension = "png";
         } else {
             extension = FilenameUtils.getExtension(multipartFile.getOriginalFilename());
         }
 
-            Date date = new Date() ;
+        Date date = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
-        String strinDate=dateFormat.format(date);
+        String strinDate = dateFormat.format(date);
 
 
-        if (extension.equals("xps")){
-            String fileName=date.getTime()+".png";
-            folder=folder+fileName;
+        if (extension.equals("xps")) {
+            String fileName = date.getTime() + ".png";
+            folder = folder + fileName;
             XPStoPNG xpStoPNG = new XPStoPNG();
             xpStoPNG.convertir(multipartFile, folder);
             return fileName;
@@ -44,11 +44,11 @@ public class SaveInServer {
 //            ImageIO.write(image, fileType, byteArrayOutputStream);
 //            InputStream inputStream = new ByteArrayInputStream(byteArrayOutputStream.toByteArray());
 
-            String fileName=date.getTime()+"."+extension;
+            String fileName = date.getTime() + "." + extension;
 
             FTPClient ftpClient = new FTPClient();
             ftpClient.connect(Constantes.SERVER);
-            if (ftpClient.login(Constantes.USER, Constantes.PASSWORD)){
+            if (ftpClient.login(Constantes.USER, Constantes.PASSWORD)) {
                 ftpClient.enterLocalPassiveMode(); /// IMPORTANTE
                 ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
                 boolean result = ftpClient.storeFile(folder + fileName, multipartFile.getInputStream());

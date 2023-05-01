@@ -191,7 +191,7 @@ public class RecepcionVerificacionRegistroCodificacionController {
         for (int j = 0; j< lista.size(); j++){
             MetodoMuestra metodoMuestra = metodoMuestraService.findById(lista.get(j).getMetodoMuestraId());
             metodoMuestra.setPathQRLab(Constantes.PROTOCOLO + Constantes.SERVER + Constantes.CLIENTE +Constantes.QR_FEIL + qrService.generateToLab(lista.get(j).getMetodoMuestraId(), Constantes.QR_FEIL));
-            metodoMuestra.setFolioTecnica(foliosService.folioTecnicas(lista.get(j).getMethod().getCodigoMetodo()));
+            metodoMuestra.setFolioTecnica(a.substring(2) + "-" + foliosService.folioTecnicas(lista.get(j).getMethod().getCodigoMetodo()));
             metodoMuestra.setEstatus("PENDIENTE");
             metodoMuestraService.save(metodoMuestra);
         }

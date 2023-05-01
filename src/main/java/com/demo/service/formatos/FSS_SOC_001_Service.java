@@ -252,10 +252,14 @@ public class FSS_SOC_001_Service {
     }
 
     private String getAttributeContacto(int bandera, JSONArray contactosAux,String attribute) throws JSONException {
+        System.out.println("Contenido de contactosAux -> "+contactosAux);
         StringBuilder contacto= new StringBuilder();
         JSONObject jsonObject;
         for(int i=0; i<contactosAux.length(); i++){
             jsonObject= (JSONObject) contactosAux.get(i);
+
+            System.out.println("Contenido de JsonObject en " + i +" -> " + jsonObject.get("nombrePersonaContacto").toString());
+
             if (attribute.equals("nombrePersonaContacto")){
                 if (bandera == i){
                     return jsonObject.get("nombrePersonaContacto").toString();

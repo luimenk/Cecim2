@@ -573,6 +573,7 @@ function validaImprimirEtiqueta(valor) {
 }
 
 function validaImprimirEtiquetasEnsayos(valor) {
+    alert("Tardaremos un minuto en obtener las etiquetas. Por favor espere a que termine de procesar toda la información. De clic en aceptar para continuar...")
     const url = document.URL;
     const id = url.substring(url.lastIndexOf('/') + 1);
     window.location = "/recepcionVerificacion/imprimirEtiquetasLaboratorioTodas/" + id;
