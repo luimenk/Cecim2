@@ -160,9 +160,18 @@
                                     <label class="col-sm-2 control-label">Código del espectrómetro</label>
                                     <div class="col-sm-4 col-sm-offset-1">
                                         <div class="form-group">
-                                            <input type="text" class="form-control"
+                                            <!--
+                                                   <input type="text" class="form-control"
                                                    name="codigoEspectrometro" id="codigoEspectrometro"
                                                    value="FTIR-14" disabled>
+                                             -->
+                                            <select class="selectpicker" name="codigoEspectrometro" id="codigoEspectrometro"
+                                                    data-style="btn-primary"
+                                                    data-menu-style="dropdown-blue">
+                                                <option value="FTIR-14">FTIR-14</option>
+                                                <option value="FTIR-20">FTIR-20</option>
+                                                <option value="PACA-05">PACA-05</option>
+                                            </select>
                                         </div>
                                     </div>
 

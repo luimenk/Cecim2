@@ -671,21 +671,25 @@ public class SolicitudServicioClienteService {
 //            System.out.println();
 //        }
 
+        /********** DESARRLLO DEL INFORME  **********/
         /********** INICIO DE CONTROL DE LA TABLA DE LA CABECERA **********/
         CTSectPr sectPr = doc.getDocument().getBody().getSectPr();
         XWPFHeaderFooterPolicy xwpfHeaderFooterPolicy = new XWPFHeaderFooterPolicy(doc, sectPr);
-
         XWPFHeader xwpfHeader = xwpfHeaderFooterPolicy.getHeader(XWPFHeaderFooterPolicy.DEFAULT);
-
         XWPFTable tableHeader = xwpfHeader.getTableArray(0);
+        // Folio de la Solicitud
         tableHeader.getRow(4).getCell(4).setText(solicitudServicioCliente.getFolioSolitudServicioCliente());
         /********** FIN DE CONTROL DE LA TABLA DE LA CABECERA **********/
 
+
+        /********** INICIO DE CONTROL DE LA TABLA DE LA FECHA **********/
         XWPFTable table0 = doc.getTables().get(0);
         table0.getRow(0).getCell(1).setText(formatoFechas.formateadorFechas(solicitudServicioCliente.getFechaRecepcionMuestras()));
         table0.getRow(1).getCell(1).setText(formatoFechas.fechaActual());
         table0.getRow(2).getCell(1).setText(solicitudServicioCliente.getFolioSolitudServicioCliente());
+        /********** FIN DE CONTROL DE LA TABLA DE LA FECHA **********/
 
+        /********** INICIO DE CONTROL DE LA TABLA DE DATOS DEL CLIENTE **********/
         XWPFTable table1 = doc.getTables().get(1);
         table1.getRow(0).getCell(1).setText(solicitudServicioCliente.getClient().getNombreRazonSocial());
         String direccion = solicitudServicioCliente.getClient().getCalle() + " " +
@@ -708,7 +712,9 @@ public class SolicitudServicioClienteService {
         } catch (JSONException e) {
             System.out.println("e: " + e);
         }
+        /********** FIN DE CONTROL DE LA TABLA DE DATOS DEL CLIENTE **********/
 
+        /********** INICIO DE CONTROL DE LA TABLA DETALLE DE LA MUESTRA **********/
         XWPFTable table2 = doc.getTables().get(2);
         XWPFTable tableDocumment_a = plantilla.getTables().get(2);
         table2.getRow(0).setRepeatHeader(true);
@@ -717,6 +723,7 @@ public class SolicitudServicioClienteService {
         table2.removeRow(1);
         int band = 0;
         String resul = "";
+        // Recorre todas las muestras
         for (int i = 0; i < solicitudServicioClienteMuestrasLista.size(); i++) {
             XWPFTableRow tableRow = table2.createRow();
             tableRow.getCell(0).setText((i + 1) + "");
@@ -738,7 +745,9 @@ public class SolicitudServicioClienteService {
             tableRow.getCell(4).setText(solicitudServicioClienteMuestrasLista.get(i).getDescripcionMuestra());
             tableRow.getCell(5).setText(solicitudServicioClienteMuestrasLista.get(i).getLote());
         }
+        // Fin de recorre muestras. Utiliza puro DOC
 
+        // Muestra proporcionada por el cliente
         XWPFTableRow rowa = tableDocumment_a.getRow(2);
         rowa.getCell(2).setText(resul);
         table2.addRow(rowa);
@@ -752,18 +761,23 @@ public class SolicitudServicioClienteService {
             row3.getCell(1).setText("N/A");
             table2.addRow(row3);
         }
+        /********** FIN DE CONTROL DE LA TABLA DETALLE DE LA MUESTRA **********/
 
+        /********** INICIO DE CONTROL DE LA TABLA ENSAYOS SOLICITADOS **********/
 
         XWPFTable table3 = doc.getTables().get(3);
         table3.getRow(0).setRepeatHeader(true);
         for (int i = 0; i < sinRepetirCodigo.size(); i++) {
+            //System.out.println(i+" "+sinRepetirNombre.get(i));
             XWPFTableRow tableRow = table3.createRow();
             tableRow.getCell(0).setText(sinRepetirNombre.get(i));
             tableRow.getCell(1).setText(sinRepetirCodigo.get(i));
             Method method = methodService.findByCodigo(sinRepetirCodigo.get(i));
             tableRow.getCell(2).setText(method.getNormaReferencia());
         }
+        /********** FIN DE CONTROL DE LA TABLA ENSAYOS SOLICITADOS **********/
 
+        /********** INICIO DE SECCIONES DE ENSAYOS SOLICITADOS **********/
         int bandAT = 0, bandDI = 0, bandES = 0, bandGR = 0, bandHUM = 0, bandNCP = 0, bandPPG = 0, bandFTIR = 0, bandTGA = 0, bandICI = 0;
         int bandEAT = 0, bandEAUV = 0, bandAEXE = 0, bandOIT = 0, bandDSC = 0, bandCST = 0, bandIF = 0, bandPO = 0, bandPRR = 0;
         int bandRTER = 0, bandRCD = 0, bandRI = 0;
@@ -791,8 +805,9 @@ public class SolicitudServicioClienteService {
         List<FRA_RTER_001> listaRTER = new ArrayList<FRA_RTER_001>();
 //        List<FRA_RCD_001> listaRCD = new ArrayList<FRA_RCD_001>();
 //        List<FRA_RI_001> listaRI = new ArrayList<FRA_RI_001>();
-        for (int i = 0; i < metodoMuestraList.size(); i++) {
 
+        for (int i = 0; i < metodoMuestraList.size(); i++) {
+            /********** MET-AT-001 **********/
             if (metodoMuestraList.get(i).getMethod().getCodigoMetodo().equals("MET-AT-001") && bandAT == 0) {
                 bandAT++;
                 for (int j = 0; j < metodoMuestraList.size(); j++) {
@@ -805,7 +820,7 @@ public class SolicitudServicioClienteService {
                 contTabla = fra_01_at_print.fragmentoReporte(doc, plantilla, contTabla, contador, listaAT);
                 contador = 0;
             }
-
+            /********** MET-DI-002 **********/
             if (metodoMuestraList.get(i).getMethod().getCodigoMetodo().equals("MET-DI-002") && bandDI == 0) {
                 bandDI++;
                 for (int j = 0; j < metodoMuestraList.size(); j++) {

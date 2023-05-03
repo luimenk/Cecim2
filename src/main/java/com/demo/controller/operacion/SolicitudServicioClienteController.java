@@ -1,9 +1,7 @@
 package com.demo.controller.operacion;
 
 import com.demo.model.Client;
-import com.demo.model.Method;
 import com.demo.model.operacion.MetodoMuestra;
-import com.demo.model.operacion.RecepcionVerificacionRegistroCodificacion;
 import com.demo.model.operacion.SolicitudServicioCliente;
 import com.demo.model.operacion.SolicitudServicioClienteMuestras;
 import com.demo.service.ClientService;
@@ -12,7 +10,6 @@ import com.demo.service.MethodService;
 import com.demo.service.QR.QRService;
 import com.demo.service.formatos.FEIM_SOC_005_Service;
 import com.demo.service.formatos.FERI_MIE_002_Service;
-import com.demo.service.formatos.FRM_SOC_005_Service;
 import com.demo.service.formatos.FSS_SOC_001_Service;
 import com.demo.service.operacion.MetodoMuestraService;
 import com.demo.service.operacion.RecepcionVerificacionRegistroCodificacionService;
@@ -20,7 +17,6 @@ import com.demo.service.operacion.SolicitudServicioClienteMuestrasService;
 import com.demo.service.operacion.SolicitudServicioClienteService;
 import com.demo.utils.Constantes;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,9 +28,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;

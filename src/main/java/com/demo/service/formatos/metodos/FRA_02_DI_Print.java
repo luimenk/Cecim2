@@ -1,5 +1,6 @@
 package com.demo.service.formatos.metodos;
 
+import com.demo.model.operacion.DisplayMachine;
 import com.demo.model.operacion.metodos.fra01at.FRA_AT_001;
 import com.demo.model.operacion.metodos.fra02di.FRA_DI_001;
 import com.demo.model.operacion.metodos.fra02di.datas.FRA_DI_001_DATA;
@@ -41,6 +42,8 @@ public class FRA_02_DI_Print {
     EstructuraNombres estructuraNombres = new EstructuraNombres();
     FormatoFechas formatoFechas = new FormatoFechas();
 
+    private DisplayMachine displayMachine = new DisplayMachine(2,1);
+
     public ResponseEntity<InputStreamResource> crearFormato(Long id, int band) throws InvalidFormatException, IOException {
 
         FRA_DI_001 fra_di_001;
@@ -59,7 +62,6 @@ public class FRA_02_DI_Print {
 
         XWPFTable table0 = doc.getTables().get(0);
         table0.getRow(0).getCell(1).setText(fra_di_001.getFolioTecnica());
-
         XWPFTable table1 = doc.getTables().get(1);
         table1.getRow(0).getCell(1).setText(fra_di_001.getFolioSolicitudServicioInterno());
         table1.getRow(0).getCell(3).setText(formatoFechas.formateadorFechas(fra_di_001.getFechaInicioAnalisis()));
@@ -70,6 +72,7 @@ public class FRA_02_DI_Print {
         table2.getRow(0).getCell(1).setText(fra_di_001.getTemperatura() + " °C");
         table2.getRow(0).getCell(3).setText(fra_di_001.getHumedadRelativa() + " %");
         table2.getRow(0).getCell(5).setText(fra_di_001.getCodigoRegla());
+        displayMachine.setcodigoRegla(fra_di_001.getCodigoRegla());
 
         XWPFTable table3 = doc.getTables().get(3);
         for (int i = 0; i < lista.size(); i++) {
@@ -127,7 +130,9 @@ public class FRA_02_DI_Print {
         XWPFTable tabl = doc.createTable();
         tabl.removeRow(0);
         XWPFTable tableDocummento = plantilla.getTables().get(8);
-        tableDocummento.getRow(1).getCell(1).setText("Regla 30 cm / 60 cm ARLY");
+        //tableDocummento.getRow(1).getCell(1).setText("Regla 30 cm / 60 cm ARLY");
+        displayMachine.setcodigoRegla(lista.get(0).getCodigoRegla());
+        tableDocummento.getRow(1).getCell(1).setText(displayMachine.getDisplayM());
         CTTbl cTTblTemplat = tableDocummento.getCTTbl();
         tabl = new XWPFTable((CTTbl) cTTblTemplat.copy(), doc);
         doc.setTable(contTabla, tabl);

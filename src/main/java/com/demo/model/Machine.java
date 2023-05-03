@@ -14,6 +14,7 @@ public class Machine {
     @Column(name = "Machine_Id", nullable = false)
     private Long machineId;
 
+
     //*** DATOS DEL EQUIPO ***
     @Column(name = "Codigo_Interno", length = 250, nullable = false)
     private String codigoInterno;

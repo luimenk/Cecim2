@@ -1,5 +1,6 @@
 package com.demo.service.formatos.metodos;
 
+import com.demo.model.operacion.DisplayMachine;
 import com.demo.model.operacion.metodos.fra05hum.FRA_HUM_001;
 import com.demo.model.operacion.metodos.fra07ppg.FRA_PPG_001;
 import com.demo.model.operacion.metodos.fra07ppg.datas.FRA_PPG_001_DATA;
@@ -36,6 +37,8 @@ public class FRA_07_PPG_Print {
 
     @Autowired
     private FRA_PPG_001_DATA_Repository fra_ppg_001_data_repository;
+
+    private DisplayMachine displayMachine = new DisplayMachine(7,1);
 
     EstructuraNombres estructuraNombres = new EstructuraNombres();
     FormatoFechas formatoFechas = new FormatoFechas();
@@ -121,7 +124,8 @@ public class FRA_07_PPG_Print {
         XWPFTable tabl = doc.createTable();
         tabl.removeRow(0);
         XWPFTable tableDocummento = plantilla.getTables().get(31);
-        tableDocummento.getRow(1).getCell(1).setText("Balanza analítica, OHAUS EP 214 C");
+        //tableDocummento.getRow(1).getCell(1).setText("Balanza analítica, OHAUS EP 214 C");
+        tableDocummento.getRow(1).getCell(1).setText(displayMachine.getDisplayM());
         CTTbl cTTblTemplat = tableDocummento.getCTTbl();
         tabl = new XWPFTable((CTTbl) cTTblTemplat.copy(), doc);
         doc.setTable(contTabla, tabl);

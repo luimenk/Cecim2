@@ -1,5 +1,6 @@
 package com.demo.service.formatos.metodos;
 
+import com.demo.model.operacion.DisplayMachine;
 import com.demo.model.operacion.metodos.fra07ppg.FRA_PPG_001;
 import com.demo.model.operacion.metodos.fra08ftir.FRA_FTIR_001;
 import com.demo.model.operacion.metodos.fra08ftir.datas.FRA_FTIR_001_DATA;
@@ -33,6 +34,8 @@ public class FRA_08_FTIR_Print {
 
     @Autowired
     private FRA_FTIR_001_DATA_Repository fra_ftir_001_data_repository;
+
+    private DisplayMachine displayMachine = new DisplayMachine(8,1);
 
     EstructuraNombres estructuraNombres = new EstructuraNombres();
     FormatoFechas formatoFechas = new FormatoFechas();
@@ -124,7 +127,9 @@ public class FRA_08_FTIR_Print {
         XWPFTable tabl = doc.createTable();
         tabl.removeRow(0);
         XWPFTable tableDocummento = plantilla.getTables().get(35);
-        tableDocummento.getRow(1).getCell(1).setText("Espectrofotómetro infrarrojo FTIR iS20/iZ10, Thermo Scientific Nicolet iS20/iZ10");
+        //tableDocummento.getRow(1).getCell(1).setText("Espectrofotómetro infrarrojo FTIR iS20/iZ10, Thermo Scientific Nicolet iS20/iZ10");
+        displayMachine.setcodigoRegla(lista.get(0).getCodigoEspectrometro());
+        tableDocummento.getRow(1).getCell(1).setText(displayMachine.getDisplayM());
         CTTbl cTTblTemplat = tableDocummento.getCTTbl();
         tabl = new XWPFTable((CTTbl) cTTblTemplat.copy(), doc);
         doc.setTable(contTabla, tabl);

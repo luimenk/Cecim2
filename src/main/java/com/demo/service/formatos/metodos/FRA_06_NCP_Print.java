@@ -1,5 +1,6 @@
 package com.demo.service.formatos.metodos;
 
+import com.demo.model.operacion.DisplayMachine;
 import com.demo.model.operacion.metodos.fra05hum.FRA_HUM_001;
 import com.demo.model.operacion.metodos.fra06ncp.FRA_NCP_001;
 import com.demo.model.operacion.metodos.fra06ncp.datas.FRA_NCP_001_DATA_01;
@@ -51,6 +52,8 @@ public class FRA_06_NCP_Print {
 
     @Autowired
     private FRA_NCP_001_DATA_04_Repository fra_ncp_001_data_04_repository;
+
+    private DisplayMachine displayMachine = new DisplayMachine(6,1);
 
     EstructuraNombres estructuraNombres = new EstructuraNombres();
     FormatoFechas formatoFechas = new FormatoFechas();
@@ -169,7 +172,8 @@ public class FRA_06_NCP_Print {
         XWPFTable tabl = doc.createTable();
         tabl.removeRow(0);
         XWPFTable tableDocummento = plantilla.getTables().get(25);
-        tableDocummento.getRow(1).getCell(1).setText("Micrómetro, Mitutoyo ID-C112EXBS. Microscopio óptico, Motic BA410.");
+        //tableDocummento.getRow(1).getCell(1).setText("Micrómetro, Mitutoyo ID-C112EXBS. Microscopio óptico, Motic BA410.");
+        tableDocummento.getRow(1).getCell(1).setText(displayMachine.getDisplayM());
         CTTbl cTTblTemplat = tableDocummento.getCTTbl();
         tabl = new XWPFTable((CTTbl) cTTblTemplat.copy(), doc);
         doc.setTable(contTabla, tabl);
@@ -230,16 +234,18 @@ public class FRA_06_NCP_Print {
         table_2 = new XWPFTable((CTTbl) cTTblTemplate_2.copy(), doc);
         try {
             table_2.getRow(1).getCell(0).setText(lista.get(0).getMetodoMuestra().getSolicitudServicioClienteMuestras().getIdClienteMuestra());
-            table_2.getRow(1).getCell(3).setText("3");
+            // by JSS table_2.getRow(1).getCell(3).setText(3);
+            table_2.getRow(1).getCell(3).setText(lista1.size()+""); // by JSS
+            table_2.getRow(1).getCell(4).setText(lista.get(0).getEspesorTotalPromedioMM1());
         } catch (NullPointerException e) {
-            System.out.println("Ocurrió un error en la tabla de resultados 1");
+            System.out.println("Ocurrió un error en la tabla de resultados 1 FRA_06_NCP");
         }
 ///TODO: REVISAR ESTO
         try {
             if (lista.get(0).getMuestraEnReporte().equals("1")) {
                 for (int i = 0; i < lista1.size(); i++) {
                     table_2.getRow(i +1).getCell(2).setText(lista1.get(i).getEspesorTotalMicrometro());
-                    table_2.getRow(1).getCell(4).setText(lista.get(0).getEspesorTotalPromedioMM1());
+                    // by JSS table_2.getRow(1).getCell(4).setText(lista.get(0).getEspesorTotalPromedioMM1());
                 }
             } else {
                 for (int i = 0; i < lista2.size(); i++) {
@@ -248,7 +254,7 @@ public class FRA_06_NCP_Print {
                 }
             }
         } catch (NullPointerException e) {
-            System.out.println("Ocurrió un error en la tabla de resultados 1");
+            System.out.println("Ocurrió un error en la tabla de resultados 1 FRA_06_NCP");
         }
 
         XWPFTable tableDocumment_4 = plantilla.getTables().get(28);

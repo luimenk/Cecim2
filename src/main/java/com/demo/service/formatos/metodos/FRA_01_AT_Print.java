@@ -1,10 +1,13 @@
 package com.demo.service.formatos.metodos;
 
+import com.demo.model.operacion.DisplayMachine;
 import com.demo.model.operacion.metodos.fra01at.FRA_AT_001;
 import com.demo.repository.operacion.metodos.fra01at.FRA_AT_001_Repository;
 import com.demo.utils.EstructuraNombres;
 import com.demo.utils.FormatoFechas;
+import org.apache.poi.hssf.record.HCenterRecord;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.util.Units;
 import org.apache.poi.xwpf.usermodel.*;
 import org.apache.xmlbeans.XmlException;
@@ -25,6 +28,7 @@ public class FRA_01_AT_Print {
 
     @Autowired
     private FRA_AT_001_Repository fra_at_001_repository;
+    private DisplayMachine displayMachine = new DisplayMachine(1,1);
 
     EstructuraNombres estructuraNombres = new EstructuraNombres();
     FormatoFechas formatoFechas = new FormatoFechas();
@@ -114,7 +118,7 @@ public class FRA_01_AT_Print {
     }
 
     public int fragmentoReporte (XWPFDocument doc, XWPFDocument plantilla, int contTabla, int contador, List<FRA_AT_001> lista) throws XmlException, IOException {
-
+        /********** INFORME FINAL **********/
         XWPFStyles newStyles = doc.createStyles();
         newStyles.setStyles(plantilla.getStyle());
         XWPFParagraph para = doc.createParagraph();
@@ -125,7 +129,8 @@ public class FRA_01_AT_Print {
         XWPFTable tabl = doc.createTable();
         tabl.removeRow(0); // El default row no es necesario
         XWPFTable tableDocummento = plantilla.getTables().get(4);
-        tableDocummento.getRow(1).getCell(1).setText("N/A");
+        tableDocummento.getRow(1).getCell(1).setText(displayMachine.getDisplayM());
+        //tableDocummento.getRow(1).getCell(1).setText("N/A");
         CTTbl cTTblTemplat = tableDocummento.getCTTbl();
         tabl = new XWPFTable((CTTbl) cTTblTemplat.copy(), doc);
         doc.setTable(contTabla, tabl);
@@ -147,8 +152,13 @@ public class FRA_01_AT_Print {
                 XWPFTableRow row1 = table.createRow();
                 row1.getCell(0).setText(lista.get(l).getMetodoMuestra().getSolicitudServicioClienteMuestras().getIdClienteMuestra());
                 row1.getCell(1).setText(formatoFechas.formateadorFechas(lista.get(l).getFechaInicioAnalisis()) + " - " + formatoFechas.formateadorFechas(lista.get(l).getFechaFinalAnalisis()));
+
+                row1.getCell(2).setVerticalAlignment(XWPFTableCell.XWPFVertAlign.CENTER);
                 row1.getCell(2).setText(lista.get(l).getTemperatura());
+
                 row1.createCell();
+
+                row1.getCell(3).setVerticalAlignment(XWPFTableCell.XWPFVertAlign.CENTER);
                 row1.getCell(3).setText(lista.get(l).getHumedadRelativa());
             } catch (NullPointerException e) {
                 System.out.println("El ensayo aún no ha sido desarrollado");
@@ -188,6 +198,7 @@ public class FRA_01_AT_Print {
             try {
                 XWPFTableRow row = table_2.createRow();
                 row.getCell(0).setText(lista.get(k).getMetodoMuestra().getSolicitudServicioClienteMuestras().getIdClienteMuestra());
+                row.getCell(0).setVerticalAlignment(XWPFTableCell.XWPFVertAlign.CENTER);
                 row.getCell(1).setText(lista.get(k).getAtp());
             } catch (NullPointerException e) {
                 table_2.addRow(tableDocumment_2.getRow(1));

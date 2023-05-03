@@ -1,5 +1,6 @@
 package com.demo.service.formatos.metodos;
 
+import com.demo.model.operacion.DisplayMachine;
 import com.demo.model.operacion.metodos.fra04gr.FRA_GR_001;
 import com.demo.model.operacion.metodos.fra05hum.FRA_HUM_001;
 import com.demo.model.operacion.metodos.fra05hum.datas.FRA_HUM_001_DATA_01;
@@ -40,6 +41,8 @@ public class FRA_05_HUM_Print {
 
     @Autowired
     private FRA_HUM_001_DATA_02_Repository fra_hum_001_data_02_repository;
+
+    private DisplayMachine displayMachine = new DisplayMachine(5,1);
 
     EstructuraNombres estructuraNombres = new EstructuraNombres();
     FormatoFechas formatoFechas = new FormatoFechas();
@@ -144,8 +147,9 @@ public class FRA_05_HUM_Print {
         XWPFTable tabl = doc.createTable();
         tabl.removeRow(0);
         XWPFTable tableDocummento = plantilla.getTables().get(21);
-        tableDocummento.getRow(1).getCell(1).setText("Balanza analítica, OHAUS EP 214 C. Horno de convección, Memmert UFE 600");
-        tableDocummento.getRow(2).getCell(1).setText(lista.get(0).getTemperaturaSecado());
+        //tableDocummento.getRow(1).getCell(1).setText("Balanza analítica, OHAUS EP 214 C. Horno de convección, Memmert UFE 600");
+        tableDocummento.getRow(1).getCell(1).setText(displayMachine.getDisplayM());
+        tableDocummento.getRow(2).getCell(1).setText(lista.get(0).getTemperaturaSecado()+"°C");
         CTTbl cTTblTemplat = tableDocummento.getCTTbl();
         tabl = new XWPFTable((CTTbl) cTTblTemplat.copy(), doc);
         doc.setTable(contTabla, tabl);

@@ -1,5 +1,6 @@
 package com.demo.service.formatos.metodos;
 
+import com.demo.model.operacion.DisplayMachine;
 import com.demo.model.operacion.metodos.fra02di.FRA_DI_001;
 import com.demo.model.operacion.metodos.fra03es.FRA_ES_001;
 import com.demo.model.operacion.metodos.fra03es.datas.FRA_ES_001_DATA;
@@ -35,6 +36,9 @@ public class FRA_03_ES_Print {
 
     @Autowired
     private FRA_ES_001_DATA_Repository fra_es_001_data_repository;
+
+    private DisplayMachine displayMachine = new DisplayMachine(3,1);
+
 
     EstructuraNombres estructuraNombres = new EstructuraNombres();
     FormatoFechas formatoFechas = new FormatoFechas();
@@ -121,7 +125,8 @@ public class FRA_03_ES_Print {
         XWPFTable tabl = doc.createTable();
         tabl.removeRow(0);
         XWPFTable tableDocummento = plantilla.getTables().get(12);
-        tableDocummento.getRow(1).getCell(1).setText("Micrómetro, Mitutoyo ID-C112EXBS");
+        //tableDocummento.getRow(1).getCell(1).setText("Micrómetro, Mitutoyo ID-C112EXBS");
+        tableDocummento.getRow(1).getCell(1).setText(displayMachine.getDisplayM());
         try {
             tableDocummento.getRow(2).getCell(1).setText(lista.get(0).getMetodoMuestra().getMethod().getCantidadTotal());
         } catch (NullPointerException e) {
@@ -188,7 +193,9 @@ public class FRA_03_ES_Print {
                 XWPFTableRow row = table_2.createRow();
                 row.getCell(0).setText(lista.get(k).getMetodoMuestra().getSolicitudServicioClienteMuestras().getIdClienteMuestra());
                 row.createCell();
-                row.getCell(1).setText(Double.parseDouble(lista.get(k).getPromedioLargo()) * 3.937 + "");
+
+                //row.getCell(1).setText(Integer.toString(Integer.valueOf(Double.toString(Double.parseDouble(lista.get(k).getPromedioLargo()) * 3.937*100))/100);
+                row.getCell(1).setText(displayMachine.getTruncate(Double.parseDouble(lista.get(k).getPromedioLargo()) * 3.937));
                 row.createCell();
                 row.getCell(2).setText(lista.get(k).getPromedioLargo());
             } catch (NullPointerException e) {
@@ -206,7 +213,8 @@ public class FRA_03_ES_Print {
                 XWPFTableRow row = table_2.createRow();
                 row.getCell(0).setText(lista.get(k).getMetodoMuestra().getSolicitudServicioClienteMuestras().getIdClienteMuestra());
                 row.createCell();
-                row.getCell(1).setText(Double.parseDouble(lista.get(k).getPromedioAncho()) * 3.937 + "");
+                //row.getCell(1).setText(Double.parseDouble(lista.get(k).getPromedioAncho()) * 3.937  + "");
+                row.getCell(1).setText(displayMachine.getTruncate(Double.parseDouble(lista.get(k).getPromedioAncho()) * 3.937));
                 row.createCell();
                 row.getCell(2).setText(lista.get(k).getPromedioAncho());
             } catch (NullPointerException e) {

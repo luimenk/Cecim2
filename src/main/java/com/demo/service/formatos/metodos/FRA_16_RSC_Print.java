@@ -343,12 +343,13 @@ public class FRA_16_RSC_Print {
         List<XWPFParagraph> listaParagraph2 = new ArrayList<>();
         List<XWPFRun> listaRun2 = new ArrayList<>();
 
-
-        for (int k = 0; k < contador; k++) {
+        //for (int k = 0; k < contador; k++) {
+        for (int k = 0; k < 0; k++) {
             try {
                 listaParagraph.add(k, doc.createParagraph());
                 listaParagraph.get(k).setAlignment(ParagraphAlignment.CENTER);
                 listaRun.add(k, listaParagraph.get(k).createRun());
+                System.out.println("aqui va");
                 try {
                     listaFis.add(k, new URL(lista.get(k).getPathImagen()).openStream());
                 } catch (NullPointerException | FileNotFoundException e) {
