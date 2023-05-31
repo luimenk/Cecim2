@@ -328,11 +328,12 @@
                                     <label class="col-sm-6 control-label">Número total de capas</label>
                                     <div class="col-sm-4 col-sm-offset-1">
                                         <div class="form-group">
-                                            <select class="selectpicker" name="numeroTotalCapas1" id="numeroTotalCapas1"
+                                            <select class="select" name="numeroTotalCapas1" id="numeroTotalCapas1"
                                                     data-title="Selecciona una opción..."
                                                     data-style="btn-primary"
                                                     data-menu-style="dropdown-blue"
-                                                    onchange="tablaMuestras1()">
+                                                onchange="tablaMuestras1()">
+                                                <option selected disabled>Selecciona</option>
                                                 <option value="1">1</option>
                                                 <option value="2">2</option>
                                                 <option value="3">3</option>
@@ -340,141 +341,142 @@
                                                 <option value="5">5</option>
                                                 <option value="6">6</option>
                                             </select>
-                                        </div>
-                                    </div>
                                 </div>
-
-                                <div id="tablaMuestras1"></div>
-
-                            </div>
-                            <div class="card-footer">
-                                <h6 class="text-danger">* Favor de verificar tu información.</h6>
                             </div>
                         </div>
+
+                        <div id="tablaMuestras1"></div>
+
                     </div>
-
-                    <div class="col-md-6">
-                        <div class="card">
-                            <div class="card-header text-center">
-                                <h4 class="card-title">Muestra 2</h4>
-                            </div>
-                            <div class="card-body" style="overflow-x: scroll">
-                                <div class="row">
-                                    <label class="col-sm-6 control-label">Número total de capas</label>
-                                    <div class="col-sm-4 col-sm-offset-1">
-                                        <div class="form-group">
-                                            <select class="selectpicker" name="numeroTotalCapas2" id="numeroTotalCapas2"
-                                                    data-title="Selecciona una opción..."
-                                                    data-style="btn-primary"
-                                                    data-menu-style="dropdown-blue"
-                                                    onchange="tablaMuestras2()">
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                                <option value="5">5</option>
-                                                <option value="6">6</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div id="tablaMuestras2"></div>
-
-                            </div>
-                            <div class="card-footer">
-                                <h6 class="text-danger">* Favor de verificar tu información. Recuerda utilizar 3 decimales</h6>
-                            </div>
-                        </div>
+                    <div class="card-footer">
+                        <h6 class="text-danger">* Favor de verificar tu información.</h6>
                     </div>
                 </div>
+            </div>
 
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-header text-center">
-                                <h4 class="card-title">Observaciones</h4>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h4 class="card-title">Muestra 2</h4>
+                    </div>
+                    <div class="card-body" style="overflow-x: scroll">
+                        <div class="row">
+                            <label class="col-sm-6 control-label">Número total de capas</label>
+                            <div class="col-sm-4 col-sm-offset-1">
+                                <div class="form-group">
+                                    <select class="select" name="numeroTotalCapas2" id="numeroTotalCapas2"
+                                            data-title="Selecciona una opción..."
+                                            data-style="btn-primary"
+                                            data-menu-style="dropdown-blue"
+                                            onchange="tablaMuestras2()">
+                                        <option selected disabled>Selecciona</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                    </select>
+                                </div>
                             </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <label class="col-sm-2 control-label">Evidencia</label>
-                                    <div class="col-sm-4 col-sm-offset-1">
-                                        <div class="form-group">
-                                            <input type="file" id="file" accept="image/*" onchange="mostrar()"/>
-                                        </div>
-                                    </div>
-                                    <label class="col-sm-2 control-label">Vista previa</label>
-                                    <div class="col-sm-4 col-sm-offset-1">
-                                        <div class="form-group">
-                                            <img id="img" style="width: 320px; height: 240px;"/>
-                                        </div>
-                                    </div>
-                                </div>
+                        </div>
 
-                                <div class="row">
-                                    <label class="col-sm-2 control-label">Evidencia 2</label>
-                                    <div class="col-sm-4 col-sm-offset-1">
-                                        <div class="form-group">
-                                            <input type="file" id="file2" accept="image/*" onchange="mostrar2()"/>
-                                        </div>
-                                    </div>
-                                    <label class="col-sm-2 control-label">Vista previa</label>
-                                    <div class="col-sm-4 col-sm-offset-1">
-                                        <div class="form-group">
-                                            <img id="img2" style="width: 320px; height: 240px;"/>
-                                        </div>
-                                    </div>
-                                </div>
+                        <div id="tablaMuestras2"></div>
 
-                                <div class="row">
-                                    <label class="col-sm-2 control-label">¿Que muestra se utilizará en el reporte?</label>
-                                    <div class="col-sm-10 mr-auto ml-auto">
-                                        <div class="form-group">
-                                            <select class="selectpicker" name="muestraEnReporte" id="muestraEnReporte"
-                                                    data-style="btn-primary"
-                                                    data-menu-style="dropdown-blue">
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
+                    </div>
+                    <div class="card-footer">
+                        <h6 class="text-danger">* Favor de verificar tu información. Recuerda utilizar 3 decimales</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-                                <div class="row">
-                                    <label class="col-sm-2 control-label">Observaciones</label>
-                                    <div class="col-sm-10 mr-auto ml-auto">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control"
-                                                   name="observaciones" id="observaciones" required="true">
-                                        </div>
-                                    </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h4 class="card-title">Observaciones</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <label class="col-sm-2 control-label">Evidencia</label>
+                            <div class="col-sm-4 col-sm-offset-1">
+                                <div class="form-group">
+                                    <input type="file" id="file" accept="image/*" onchange="mostrar()"/>
                                 </div>
-
-                                <div class="row">
-                                    <label class="col-sm-2 control-label">Realizó</label>
-                                    <div class="col-sm-4 col-sm-offset-1">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control"
-                                                   name="realizo" id="realizo" required="true">
-                                        </div>
-                                    </div>
-                                    <label class="col-sm-2 control-label">Supervisó</label>
-                                    <div class="col-sm-4 col-sm-offset-1">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control"
-                                                   name="supervisor" id="supervisor" required="true">
-                                        </div>
-                                    </div>
+                            </div>
+                            <label class="col-sm-2 control-label">Vista previa</label>
+                            <div class="col-sm-4 col-sm-offset-1">
+                                <div class="form-group">
+                                    <img id="img" style="width: 320px; height: 240px;"/>
                                 </div>
+                            </div>
+                        </div>
 
-                                <div class="row">
-                                    <label class="col-sm-2 control-label"></label>
-                                    <div class="col-sm-4 col-sm-offset-1">
-                                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Panel de firma</button>
-                                    </div>
+                        <div class="row">
+                            <label class="col-sm-2 control-label">Evidencia 2</label>
+                            <div class="col-sm-4 col-sm-offset-1">
+                                <div class="form-group">
+                                    <input type="file" id="file2" accept="image/*" onchange="mostrar2()"/>
                                 </div>
+                            </div>
+                            <label class="col-sm-2 control-label">Vista previa</label>
+                            <div class="col-sm-4 col-sm-offset-1">
+                                <div class="form-group">
+                                    <img id="img2" style="width: 320px; height: 240px;"/>
+                                </div>
+                            </div>
+                        </div>
 
-                                <!--MODAL-->
+                        <div class="row">
+                            <label class="col-sm-2 control-label">¿Que muestra se utilizará en el reporte?</label>
+                            <div class="col-sm-10 mr-auto ml-auto">
+                                <div class="form-group">
+                                    <select class="selectpicker" name="muestraEnReporte" id="muestraEnReporte"
+                                            data-style="btn-primary"
+                                            data-menu-style="dropdown-blue">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <label class="col-sm-2 control-label">Observaciones</label>
+                            <div class="col-sm-10 mr-auto ml-auto">
+                                <div class="form-group">
+                                    <input type="text" class="form-control"
+                                           name="observaciones" id="observaciones" required="true">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <label class="col-sm-2 control-label">Realizó</label>
+                            <div class="col-sm-4 col-sm-offset-1">
+                                <div class="form-group">
+                                    <input type="text" class="form-control"
+                                           name="realizo" id="realizo" required="true">
+                                </div>
+                            </div>
+                            <label class="col-sm-2 control-label">Supervisó</label>
+                            <div class="col-sm-4 col-sm-offset-1">
+                                <div class="form-group">
+                                    <input type="text" class="form-control"
+                                           name="supervisor" id="supervisor" required="true">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <label class="col-sm-2 control-label"></label>
+                            <div class="col-sm-4 col-sm-offset-1">
+                                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Panel de firma</button>
+                            </div>
+                        </div>
+
+                        <!--MODAL-->
                                 <div class="modal fade" id="myModal" role="dialog">
                                     <div class="modal-dialog">
 

@@ -1,5 +1,6 @@
 package com.demo.service.formatos.metodos;
 
+import com.demo.model.operacion.DisplayMachine;
 import com.demo.model.operacion.metodos.fra08ftir.FRA_FTIR_001;
 import com.demo.model.operacion.metodos.fra08ftir.datas.FRA_FTIR_001_DATA;
 import com.demo.model.operacion.metodos.fra09tga.FRA_TGA_001;
@@ -35,6 +36,8 @@ public class FRA_09_TGA_Print {
 
     @Autowired
     private FRA_TGA_001_DATA_Repository fra_tga_001_data_repository;
+
+    private DisplayMachine displayMachine = new DisplayMachine(9,1);
 
     EstructuraNombres estructuraNombres = new EstructuraNombres();
     FormatoFechas formatoFechas = new FormatoFechas();
@@ -143,7 +146,10 @@ public class FRA_09_TGA_Print {
         tabl.removeRow(0);
         XWPFTable tableDocummento = plantilla.getTables().get(39);
         try {
-            tableDocummento.getRow(1).getCell(1).setText("Analizador termogravimétrico, NETZSCH 209 F3 Tarsus.");
+
+            //tableDocummento.getRow(1).getCell(1).setText("Analizador termogravimétrico, NETZSCH 209 F3 Tarsus.");
+            displayMachine.setcodigoRegla(lista.get(0).getCodigoBalanza());
+            tableDocummento.getRow(1).getCell(1).setText(displayMachine.getDisplayM());
             tableDocummento.getRow(2).getCell(1).setText(lista.get(0).getTemperaturaEmergencia() + " °C");
             tableDocummento.getRow(3).getCell(1).setText(lista.get(0).getTasaCalentamiento() + " °C/min");
             System.out.println("Posible error en la lista " + lista.get(0).getTemperaturaEmergencia());

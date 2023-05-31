@@ -768,7 +768,7 @@ public class SolicitudServicioClienteService {
         XWPFTable table3 = doc.getTables().get(3);
         table3.getRow(0).setRepeatHeader(true);
         for (int i = 0; i < sinRepetirCodigo.size(); i++) {
-            //System.out.println(i+" "+sinRepetirNombre.get(i));
+            System.out.println(i+" "+sinRepetirNombre.get(i));
             XWPFTableRow tableRow = table3.createRow();
             tableRow.getCell(0).setText(sinRepetirNombre.get(i));
             tableRow.getCell(1).setText(sinRepetirCodigo.get(i));

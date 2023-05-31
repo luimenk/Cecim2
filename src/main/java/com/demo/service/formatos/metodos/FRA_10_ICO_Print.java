@@ -1,5 +1,6 @@
 package com.demo.service.formatos.metodos;
 
+import com.demo.model.operacion.DisplayMachine;
 import com.demo.model.operacion.metodos.fra09tga.FRA_TGA_001;
 import com.demo.model.operacion.metodos.fra09tga.datas.FRA_TGA_001_DATA;
 import com.demo.model.operacion.metodos.fra10ico.FRA_ICO_001;
@@ -38,6 +39,8 @@ public class FRA_10_ICO_Print {
 
     @Autowired
     private FRA_ICO_001_DATA_Repository fra_ico_001_data_repository;
+
+    private DisplayMachine displayMachine = new DisplayMachine(10,1);
 
     EstructuraNombres estructuraNombres = new EstructuraNombres();
     FormatoFechas formatoFechas = new FormatoFechas();
@@ -145,7 +148,9 @@ public class FRA_10_ICO_Print {
         tabl.removeRow(0);
         XWPFTable tableDocummento = plantilla.getTables().get(43);
         try{
-            tableDocummento.getRow(1).getCell(1).setText("Micrómetro, Mitutoyo ID-C112EXBS");
+            displayMachine.setcodigoRegla(lista.get(0).getCodigoEspectrometro());
+            tableDocummento.getRow(1).getCell(1).setText(displayMachine.getDisplayM());
+            //tableDocummento.getRow(1).getCell(1).setText("Micrómetro, Mitutoyo ID-C112EXBS");
             tableDocummento.getRow(1).getCell(2).setText(lista.get(0).getTipoEnvejecimiento());
             tableDocummento.getRow(1).getCell(3).setText("En dónde se localiza esto en el formato de ensayo?");
             tableDocummento.getRow(1).getCell(4).setText("En dónde se localiza esto en el formato de ensayo?");

@@ -170,9 +170,14 @@
                                     <label class="col-sm-2 control-label">Código de la balanza</label>
                                     <div class="col-sm-4 col-sm-offset-1">
                                         <div class="form-group">
-                                            <input type="text" class="form-control"
-                                                   name="codigoBalanza" id="codigoBalanza"
-                                                   value="BALA-02" disabled>
+                                            <select class="selectpicker" name="codigoBalanza" id="codigoBalanza"
+                                                            required
+                                                            data-title="Selecciona una opción..."
+                                                            data-style="btn-info"
+                                                            data-menu-style="dropdown-blue">
+                                                        <option value="BALA-02">BALA-02</option>
+                                                        <option value="BALA-21">BALA-21</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
