@@ -169,7 +169,12 @@ public class SolicitudServicioClienteVista {
         model.addAttribute("listaMetodos", lista2);
         model.addAttribute("folio", solicitudServicioCliente.getFolioSolitudServicioCliente());
 
-        lista2.get(0).getMetodoMuestraId();
+        try {
+            lista2.get(0).getMetodoMuestraId();
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("A la solicitud: " + solicitudServicioCliente.getFolioSolitudServicioCliente() +
+                                " no se le registraron métodos.");
+        }
 
         for (GrantedAuthority a : review) {
             model.addAttribute("role", a.getAuthority());

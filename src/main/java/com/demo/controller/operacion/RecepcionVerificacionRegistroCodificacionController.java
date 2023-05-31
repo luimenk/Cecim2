@@ -115,35 +115,6 @@ public class RecepcionVerificacionRegistroCodificacionController {
     @CrossOrigin(origins = "*", methods = {RequestMethod.POST})
     @ResponseStatus(code = HttpStatus.CREATED)
     public ResponseEntity<?> create(@RequestBody Map<String, String> request) throws Exception {
-        /*SolicitudServicioCliente valida = solicitudServicioClienteService.findByIdFolio(request.get("folioSolitudServicioCliente"));
-        if (valida != null){
-            if (request.get("userId") == ""){
-                APP.debug("Intento de registro de correo existente" + calendario.getTime());
-                return new ResponseEntity<>(HttpStatus.CONFLICT);
-            } else {
-                APP.debug("Apartado de modificación" + calendario.getTime());
-                Client client = clientService.findById(Long.parseLong(request.get("empresa")));
-                SolicitudServicioCliente solicitudServicioCliente = solicitudServicioClienteService.findById(Long.parseLong(request.get("solicitudServicioClienteId")));
-                solicitudServicioCliente.setFolioSolitudServicioCliente(foliosService.folioSolicitudServicioCliente());
-                solicitudServicioCliente.setFechaEnvioMuestras(request.get("fechaEnvioMuestras"));
-                solicitudServicioCliente.setFechaPago(request.get("fechaPago"));
-                solicitudServicioCliente.setServicioUrgente(request.get("servicioUrgente"));
-                solicitudServicioCliente.setNombreFirmaEmisor(request.get("nombreFirmaEmisor"));
-                solicitudServicioCliente.setAlmacenamientoEspecial(request.get("almacenamientoEspecial"));
-                solicitudServicioCliente.setEspecifique(request.get("especifique"));
-                solicitudServicioCliente.setFechaRecepcionMuestras(request.get("fechaRecepcionMuestras"));
-                solicitudServicioCliente.setFechaCompromisoEntrega(request.get("fechaCompromisoEntrega"));
-                solicitudServicioCliente.setNombreFirmaReceptor(request.get("nombreFirmaReceptor"));
-                solicitudServicioCliente.setNombreFirmaCalidad(request.get("nombreFirmaCalidad"));
-                solicitudServicioCliente.setDevolucionMuestras(request.get("devolucionMuestras"));
-                solicitudServicioCliente.setClient(client);
-                solicitudServicioClienteService.save(solicitudServicioCliente);
-
-
-                return new ResponseEntity<>(HttpStatus.OK);
-            }
-        }*/
-
         APP.debug("Apartado de registro nuevo" + calendario.getTime());
 
         String ids = foliosService.IdConsecutivos();
@@ -161,42 +132,47 @@ public class RecepcionVerificacionRegistroCodificacionController {
         RecepcionVerificacionRegistroCodificacion recepcionVerificacionRegistroCodificacion = new RecepcionVerificacionRegistroCodificacion();
         SolicitudServicioClienteMuestras solicitudServicioClienteMuestras = solicitudServicioClienteMuestrasService.findById(Long.parseLong(request.get("idMuestra")));
 
-        recepcionVerificacionRegistroCodificacion.setCuentaConEtiqueta(request.get("cuentaConEtiqueta"));
-        recepcionVerificacionRegistroCodificacion.setUtilizoFeim(request.get("utilizoFeim"));
-        recepcionVerificacionRegistroCodificacion.setCantidadMuestraEntregada(request.get("cantidadMuestraEntregada"));
-        recepcionVerificacionRegistroCodificacion.setSolicitudServicioClienteMuestras(solicitudServicioClienteMuestras);
-        recepcionVerificacionRegistroCodificacion.setFechaRecepcion("");
-        recepcionVerificacionRegistroCodificacion.setFolioRecepcionVerificacion(foliosService.folioRecepcionValidacion());
-        recepcionVerificacionRegistroCodificacion.setNombrePersonaRecibe("");
-        recepcionVerificacionRegistroCodificacion.setNombrePersonaEntrega("");
-        recepcionVerificacionRegistroCodificacion.setMedioRecepcion(request.get("medioRecepcion"));
-        recepcionVerificacionRegistroCodificacion.setIdInternoMuestra1("L" + a.substring(2) + "-" + ids);
-        recepcionVerificacionRegistroCodificacion.setIdInternoMuestra2("R" + a.substring(2) + "-" + ids);
-        recepcionVerificacionRegistroCodificacion.setCondicionesMuestra1(request.get("condicionesMuestra1"));
-        recepcionVerificacionRegistroCodificacion.setCondicionesMuestra2(request.get("condicionesMuestra2"));
-        recepcionVerificacionRegistroCodificacion.setCumpleCantidad(request.get("cumpleCantidad"));
-        recepcionVerificacionRegistroCodificacion.setSinoEspecifiqueCantidad(request.get("sinoEspecifiqueCantidad"));
-        recepcionVerificacionRegistroCodificacion.setCantidadMuestraAnalisis(request.get("cantidadMuestraAnalisis"));
-        recepcionVerificacionRegistroCodificacion.setCantidadMuestraRetencion(request.get("cantidadMuestraRetencion"));
-        recepcionVerificacionRegistroCodificacion.setNombrePersonaAcondicionara(request.get("nombrePersonaAcondicionara"));
-        recepcionVerificacionRegistroCodificacion.setUbicacionMuestraRetencion(request.get("ubicacionMuestraRetencion"));
-        recepcionVerificacionRegistroCodificacionService.save(recepcionVerificacionRegistroCodificacion);
-        solicitudServicioClienteMuestras.setEstatus("SI");
-        solicitudServicioClienteMuestrasService.save(solicitudServicioClienteMuestras);
+        List<MetodoMuestra> lista2 = metodoMuestraService.findAllBySolicitud(solicitudServicioClienteMuestras.getSolicitudServicioCliente());
+        if (lista2.isEmpty()){
+            System.out.println("No has registrado metodos para la solicitud " + solicitudServicioClienteMuestras.getSolicitudServicioCliente().getFolioSolitudServicioCliente());
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            recepcionVerificacionRegistroCodificacion.setCuentaConEtiqueta(request.get("cuentaConEtiqueta"));
+            recepcionVerificacionRegistroCodificacion.setUtilizoFeim(request.get("utilizoFeim"));
+            recepcionVerificacionRegistroCodificacion.setCantidadMuestraEntregada(request.get("cantidadMuestraEntregada"));
+            recepcionVerificacionRegistroCodificacion.setSolicitudServicioClienteMuestras(solicitudServicioClienteMuestras);
+            recepcionVerificacionRegistroCodificacion.setFechaRecepcion("");
+            recepcionVerificacionRegistroCodificacion.setFolioRecepcionVerificacion(foliosService.folioRecepcionValidacion());
+            recepcionVerificacionRegistroCodificacion.setNombrePersonaRecibe("");
+            recepcionVerificacionRegistroCodificacion.setNombrePersonaEntrega("");
+            recepcionVerificacionRegistroCodificacion.setMedioRecepcion(request.get("medioRecepcion"));
+            recepcionVerificacionRegistroCodificacion.setIdInternoMuestra1("L" + a.substring(2) + "-" + ids);
+            recepcionVerificacionRegistroCodificacion.setIdInternoMuestra2("R" + a.substring(2) + "-" + ids);
+            recepcionVerificacionRegistroCodificacion.setCondicionesMuestra1(request.get("condicionesMuestra1"));
+            recepcionVerificacionRegistroCodificacion.setCondicionesMuestra2(request.get("condicionesMuestra2"));
+            recepcionVerificacionRegistroCodificacion.setCumpleCantidad(request.get("cumpleCantidad"));
+            recepcionVerificacionRegistroCodificacion.setSinoEspecifiqueCantidad(request.get("sinoEspecifiqueCantidad"));
+            recepcionVerificacionRegistroCodificacion.setCantidadMuestraAnalisis(request.get("cantidadMuestraAnalisis"));
+            recepcionVerificacionRegistroCodificacion.setCantidadMuestraRetencion(request.get("cantidadMuestraRetencion"));
+            recepcionVerificacionRegistroCodificacion.setNombrePersonaAcondicionara(request.get("nombrePersonaAcondicionara"));
+            recepcionVerificacionRegistroCodificacion.setUbicacionMuestraRetencion(request.get("ubicacionMuestraRetencion"));
+            recepcionVerificacionRegistroCodificacionService.save(recepcionVerificacionRegistroCodificacion);
+            solicitudServicioClienteMuestras.setEstatus("SI");
+            solicitudServicioClienteMuestrasService.save(solicitudServicioClienteMuestras);
 
-        List<MetodoMuestra> lista = metodoMuestraService.findAllByMuestra(recepcionVerificacionRegistroCodificacion.getSolicitudServicioClienteMuestras().getSolicitudServicioClienteMuestrasId());
+            List<MetodoMuestra> lista = metodoMuestraService.findAllByMuestra(recepcionVerificacionRegistroCodificacion.getSolicitudServicioClienteMuestras().getSolicitudServicioClienteMuestrasId());
 
-        //solicitudServicioClienteMuestras.setPathQRIdentificacion(Constantes.PROTOCOLO + Constantes.SERVER + Constantes.CLIENTE +Constantes.QR_FEIM + qrService.generate(solicitudServicioClienteMuestras.getSolicitudServicioClienteMuestrasId(), Constantes.QR_FEIM));
+            //solicitudServicioClienteMuestras.setPathQRIdentificacion(Constantes.PROTOCOLO + Constantes.SERVER + Constantes.CLIENTE +Constantes.QR_FEIM + qrService.generate(solicitudServicioClienteMuestras.getSolicitudServicioClienteMuestrasId(), Constantes.QR_FEIM));
 
-        for (int j = 0; j< lista.size(); j++){
-            MetodoMuestra metodoMuestra = metodoMuestraService.findById(lista.get(j).getMetodoMuestraId());
-            metodoMuestra.setPathQRLab(Constantes.PROTOCOLO + Constantes.SERVER + Constantes.CLIENTE +Constantes.QR_FEIL + qrService.generateToLab(lista.get(j).getMetodoMuestraId(), Constantes.QR_FEIL));
-            metodoMuestra.setFolioTecnica(a.substring(2) + "-" + foliosService.folioTecnicas(lista.get(j).getMethod().getCodigoMetodo()));
-            metodoMuestra.setEstatus("PENDIENTE");
-            metodoMuestraService.save(metodoMuestra);
+            for (int j = 0; j< lista.size(); j++){
+                MetodoMuestra metodoMuestra = metodoMuestraService.findById(lista.get(j).getMetodoMuestraId());
+                metodoMuestra.setPathQRLab(Constantes.PROTOCOLO + Constantes.SERVER + Constantes.CLIENTE +Constantes.QR_FEIL + qrService.generateToLab(lista.get(j).getMetodoMuestraId(), Constantes.QR_FEIL));
+                metodoMuestra.setFolioTecnica(a.substring(2) + "-" + foliosService.folioTecnicas(lista.get(j).getMethod().getCodigoMetodo()));
+                metodoMuestra.setEstatus("PENDIENTE");
+                metodoMuestraService.save(metodoMuestra);
+            }
+            return new ResponseEntity<>(HttpStatus.OK);
         }
-
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/imprimirRegistroMuestras", method = RequestMethod.GET)
