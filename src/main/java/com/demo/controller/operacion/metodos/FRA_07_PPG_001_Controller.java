@@ -119,7 +119,7 @@ public class FRA_07_PPG_001_Controller {
 
                 fra_ppg_001_data.setPeso(request.get("peso" + i));
                 fra_ppg_001_data.setNumeroPellets(request.get("numeroPellets" + i));
-                fra_ppg_001_data.setPg(String.format("%.1f", ((Double.parseDouble(request.get("peso" + i))) * (Double.parseDouble(request.get("numeroPellets" + i))))));
+                fra_ppg_001_data.setPg(String.format("%.1f", ((Double.parseDouble(request.get("numeroPellets" + i))) / (Double.parseDouble(request.get("peso" + i))))));
                 fra_ppg_001_data.setFra_ppg_001(fra_ppg_001);
 
                 fra_ppg_001_data_repository.save(fra_ppg_001_data);
