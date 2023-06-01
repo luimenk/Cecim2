@@ -148,14 +148,14 @@ public class DisplayMachine {
         if (Num.length()==1)
             Num="0.00"+Num;
         else
-            if (Num.length()==2)
-                Num="0.0"+Num;
-            else
-                if (Num.length()==3)
-                    Num="0."+Num;
-                else{
-                    Num=Num.substring(0,Num.length()-3)+"."+Num.substring(Num.length()-3,Num.length());
-                }
+        if (Num.length()==2)
+            Num="0.0"+Num;
+        else
+        if (Num.length()==3)
+            Num="0."+Num;
+        else{
+            Num=Num.substring(0,Num.length()-3)+"."+Num.substring(Num.length()-3,Num.length());
+        }
 
         System.out.println(Num);
         return Num;

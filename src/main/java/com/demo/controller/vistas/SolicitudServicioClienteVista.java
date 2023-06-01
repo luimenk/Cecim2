@@ -173,7 +173,7 @@ public class SolicitudServicioClienteVista {
             lista2.get(0).getMetodoMuestraId();
         } catch (IndexOutOfBoundsException e) {
             System.out.println("A la solicitud: " + solicitudServicioCliente.getFolioSolitudServicioCliente() +
-                                " no se le registraron métodos.");
+                    " no se le registraron métodos.");
         }
 
         for (GrantedAuthority a : review) {
